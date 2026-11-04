@@ -2,7 +2,7 @@
 
 A native **Kotlin Android** movie and TV discovery application developed by [RedVelvet-Team](https://github.com/RedVelvet-Team/IMovie).
 
-> This is an attributed portfolio fork. Ali Osama reports participating with teammates; specific personal features are not assigned here because the inspected history did not resolve them to this account. Project capabilities below describe the team codebase.
+> Portfolio fork of the team project. Ali Osama participated with teammates; feature descriptions refer to the shared application.
 
 ## Capabilities represented in the code
 
