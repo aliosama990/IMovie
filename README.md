@@ -1,76 +1,67 @@
-# Movie Android App
+# IMovie — Movie Android App
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+A native **Kotlin Android** movie and TV discovery application developed by [RedVelvet-Team](https://github.com/RedVelvet-Team/IMovie).
 
-## Overview
+> This is an attributed portfolio fork. Ali Osama reports participating with teammates; specific personal features are not assigned here because the inspected history did not resolve them to this account. Project capabilities below describe the team codebase.
 
-The Movie Android App is a user-friendly mobile application that allows users to explore a vast collection of movies and get information about their details, such as title, release year, synopsis, cast, and more. The app is designed for movie enthusiasts who want to discover new movies, keep track of their favorites, and read reviews.
+## Capabilities represented in the code
 
-![App Screenshots](/screenshots/screenshot.png)
+- Movie and TV browsing, multi-search and genre-based discovery.
+- Movie, TV, season, episode and actor detail requests.
+- Cast, images, recommendations and review retrieval.
+- TMDB authentication/guest sessions and account details.
+- Favorites, watchlists, ratings and custom-list integrations.
+- Compose screens and ViewModels for search, details and library flows.
 
-## Features
+These capabilities are supported by service endpoints and presentation code. Live API behavior and every user flow have not been verified end to end. Review retrieval is present; this README does not claim review authoring, full-movie streaming or other unverified features.
 
-- Browse and search for movies by title, genre, or release year.
-- View detailed information about each movie, including plot summaries, cast, and crew.
-- Watch movie trailers directly within the app.
-- Bookmark favorite movies for easy access.
-- Read and write reviews for movies.
-- Share movie details with friends on social media platforms.
-- Dark mode for improved visibility in low-light conditions.
-- User-friendly interface with intuitive navigation.
+## Stack and architecture
 
-## Installation
+Kotlin, Jetpack Compose, Coroutines, Retrofit/OkHttp, Gson, Room, Hilt, DataStore, Paging and Firebase integrations.
 
-### Requirements
+| Module | Responsibility |
+| --- | --- |
+| `app` | Android entry point and dependency wiring |
+| `ui` / `viewmodels` | Compose presentation and screen state |
+| `usecase` / `entities` | Use cases, repository contracts and domain models |
+| `repository` | Repository implementations, DTOs and data-source contracts |
+| `remote` / `local` / `datastore` / `firebase` | Network, database, preferences and Firebase adapters |
+| `buildSrc` | Shared build configuration |
 
-- Android 6.0 (Marshmallow) or above.
-- Internet connectivity to fetch movie data.
+The active modules are declared in `settings.gradle.kts`; other scaffold directories are not evidence of additional implemented layers.
 
-### Instructions
+## Setup
 
+**Requirements:** Android Studio, JDK 17, Android SDK 33, and an Android 7.0+ device/emulator (minimum SDK 24).
 
-1. Clone the repository: `git clone https://github.com/RedVelvet-Team/IMovie`
-2. Open the project in Android Studio.
-3. Build and run the app on your Android device or emulator.
+```sh
+git clone https://github.com/aliosama990/IMovie.git
+cd IMovie
+git checkout develop
+```
 
-## Usage
+Open the repository in Android Studio and let it create the SDK path in `local.properties`. Add the properties consumed by the Gradle scripts, retaining the quotes because their values become generated Java string literals:
 
-- On app launch, the user will be presented with a list of trending movies.
-- Use the search bar to find specific movies by title or filter movies by genre, release year, or other criteria.
-- Tap on a movie to view its detailed information, including a synopsis, cast, and crew.
-- Add movies to your favorites list by tapping the heart icon.
-- Watch movie trailers by clicking on the "Play" button within the movie details page.
-- Write reviews for movies and read reviews submitted by other users.
-- Toggle dark mode by accessing the settings menu.
+```properties
+apikey="YOUR_TMDB_API_KEY"
+baseUrl="https://api.themoviedb.org/3/"
+```
 
-## Technologies Used
+The property is **`apikey`**, not `api_key`. The interceptor sends it to TMDB as the `api_key` query parameter. Keep local configuration and credentials out of version control.
 
-- Android SDK
-- Kotlin
-- Jetpack Compose
-- Kotlin DSL
-- kotlin coroutine
-- Clean Architecture by component.
-- Jetpack Room Database
-- Firebase firestore
-- Retrofit
-- Gson
-- Dagger Hilt
-- Jetpack navigation with compose
-- work Manager
-- Pagination
+Sync Gradle, select the `app` run configuration and launch a device/emulator. Firebase-dependent flows may require compatible Firebase project configuration and services.
 
-## API Integration
+## Build and checks
 
-The app integrates with the [Movie Database API](https://www.themoviedb.org/documentation/api) to fetch movie information. To use the app, you'll need to obtain an API key from themoviedb.org and add it to the app's code.
+```sh
+./gradlew :app:assembleDebug
+./gradlew test
+```
 
-1. Go to [themoviedb.org](https://www.themoviedb.org/) and sign up for an account (if you don't have one).
-2. Follow the API documentation to obtain your API key.
-3. Open the `local.properties` file and replace `api_key` with your actual API key.
-4. Use it through BuildConfig.API_KEY
-5. if property `api_key` not showing, just add it `api_key=YOUR_KEY`
+Use `gradlew.bat` on Windows. Connected instrumentation tests require an emulator/device. These commands are documented entry points, not a claim of a successful build in this documentation environment.
 
-```kotlin
-fun getApiKey(){
-  val key = BuildConfig.API_KEY
-}
+## Attribution and license
+
+Original project and history: [RedVelvet-Team/IMovie](https://github.com/RedVelvet-Team/IMovie). Original contributors retain credit.
+
+The repository's [LICENSE](LICENSE) is **Apache License 2.0**. The former README's MIT badge conflicted with that file and has been corrected in this fork. The license file and application code remain unchanged.
